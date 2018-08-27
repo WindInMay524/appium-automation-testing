@@ -1,5 +1,6 @@
 import unittest
 import sys
+import zipfile
 import os
 #sys.path.append("..")
 '''
@@ -15,10 +16,6 @@ from common import CommonConfiguration as cc
 from common import HTMLTestRunner
 #from common import SendEmail
 
-if os.path.exists(cc.folderPath()):
-    print('The folder has already existed')
-else:
-    os.makedirs(cc.folderPath())
 test_suite_dir = '%s/case/' % (os.path.dirname(os.path.abspath(__file__))) #case存放路径
 def createsuite():
     testunit = unittest.TestSuite()
@@ -51,7 +48,17 @@ if __name__ == '__main__':
                verbosity=2).run(alltestnames)
     f.close()
 
-#SendEmail.zip_folder()
+def zip_folder():
+  zip_path = cc.folderPath() + '.zip'
+  z = zipfile.ZipFile(zip_path,'w',zipfile.ZIP_DEFLATED)
+  for dirpath,dirnames,filenames in os.walk(cc.folderPath()):
+    fpath = dirpath.replace(cc.folderPath(),'')
+    fpath = fpath and fpath + os.sep or ''
+    for filename in filenames:
+      z.write(os.path.join(dirpath,filename),fpath+filename)
+      print('压缩成功')
+  z.close()
+zip_folder()
 #SendEmail.mail()
 
 

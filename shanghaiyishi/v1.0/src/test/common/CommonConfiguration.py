@@ -68,6 +68,10 @@ def folderPath():
 	folder_path = '%s/results/%s' % (
 		os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))),
 		local_date)
+	if os.path.exists(folder_path):
+		print('The folder has already existed')
+	else:
+		os.makedirs(folder_path)
 	return folder_path
 
 def picturePath():
