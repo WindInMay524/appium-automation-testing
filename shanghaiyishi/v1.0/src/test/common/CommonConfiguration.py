@@ -65,9 +65,7 @@ def timeDiff(starttime,endtime):
 	return datetime.strptime(endtime,format) - datetime.strptime(starttime,format)
 
 def folderPath():
-	folder_path = '%s/results/%s' % (
-		os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))),
-		local_date)
+	folder_path = '%s/results' % os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 	if os.path.exists(folder_path):
 		print('The folder has already existed')
 	else:
